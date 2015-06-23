@@ -13,21 +13,23 @@ app.use(express.static(__dirname + '/src'));
 
 //TODO logic
 
-var messages=[];
+var messages = [];
 
+// When the user does an HTTP post to /api/messages,
+// we will add their JSON object to our messages array
 app.post('/api/messages', function (req, res) {
+  // req.body is how you get the data that the user is sending
   messages.push(req.body);
 
+  // res.json is how you send JSON back to the user
   res.json(req.body);
 });
 
-// Routing, but this time on the server
+// When the user does an HTTP get to /api/messages,
+// we will send them our messages array
 app.get('/api/messages', function (req, res) {
   res.json(messages);
 });
-
-  //res.send('<h1>Hello, ' + req.params.id + '</h1>');
-  //res.json({ yourId: req.params.id, message: "Thanks for posting!" });
 
 // Starting our router/applicatin listening on port 3000
 var server = app.listen(3000, function () {
