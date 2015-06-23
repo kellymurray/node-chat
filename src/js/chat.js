@@ -1,5 +1,16 @@
 $(function () {
 
+  //Get messages and display them
+  $.getJSON('/api/messages')
+  .done(function (messages) {
+    var lis = messages.map(function (msg) {
+      return '<li><h2>' + msg.name + ' says </h2>' +
+      '<p>' + msg.message + '</p></li>';
+    });
+
+    $('.messages').html(lis);
+  });
+
   $('.chat-form').on('submit', function (e) {
     e.preventDefault();
 
