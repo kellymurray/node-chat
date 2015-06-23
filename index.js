@@ -11,17 +11,23 @@ app.use(bodyParser.json());
 //Serve all assets in the src folder
 app.use(express.static(__dirname + '/src'));
 
+//TODO logic
+
+var messages=[];
+
+app.post('/api/messages', function (req, res) {
+  messages.push(req.body);
+
+  res.json(req.body);
+});
+
 // Routing, but this time on the server
-app.get('/things/:id', function (req, res) {
-  res.json({
-    yourId: req.params.id,
-    message: req.query.msg || 'Hello',
-    age: req.query.age || 'unknown'
-  });
+app.get('/api/messages', function (req, res) {
+  res.json(messages);
+});
 
   //res.send('<h1>Hello, ' + req.params.id + '</h1>');
   //res.json({ yourId: req.params.id, message: "Thanks for posting!" });
-});
 
 // Starting our router/applicatin listening on port 3000
 var server = app.listen(3000, function () {
